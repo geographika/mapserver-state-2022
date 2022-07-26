@@ -1,0 +1,267 @@
+<section data-markdown>
+    <script type="text/template">
+        ## MapServer 8.0 Release
+
+        - Major development proposed as a [Request for Comment](https://mapserver.org/development/rfc/index.html) (RFC)
+        - Release planned for October 2021
+    </script>
+</section>
+
+<section data-markdown data-background="images/1200px-Open_Geospatial_Consortium_logo.svg.png" data-background-opacity="0.1" data-background-size="60%">
+    <script type="text/template">
+        ### [MS RFC 134: OGC API Support](https://mapserver.org/development/rfc/ms-rfc-134.html)
+
+        * Implements [OGC API - Features - Part 1: Core](http://docs.ogc.org/is/17-069r3/17-069r3.html)
+        * OGC Features API can be seen as the successor to WFS
+        * Uses the [nlohmann/json](https://github.com/nlohmann/json/) library and [inja](https://github.com/pantor/inja) templating libraries
+    </script>
+</section>
+
+<section data-markdown data-background="images/1200px-Open_Geospatial_Consortium_logo.svg.png" data-background-opacity="0.1" data-background-size="60%">
+    <script type="text/template">
+        <pre><code data-trim data-noescape>
+  WEB
+    METADATA
+    "ows_enable_request" "*" # enable the API
+    "oga_html_template_directory" "/templates/html-bootstrap4"
+    ...
+</code></pre>
+        * http://{server}/{mapfile}/ogcapi/collections?f={html|json}
+        * http://localhost/mapserver/itasca/ogcapi/collections?f=html
+    </script>
+</section>
+
+<section data-markdown data-background="images/ogc-itasca-collection.png" data-background-size="60%">
+</section>
+
+<section data-markdown data-background="images/ogc-itasca-lake.png" data-background-size="50%">
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+        ### [MS RFC 135: MapServer 8.0 Config file](https://mapserver.org/development/rfc/ms-rfc-135.html)
+
+        * Simpler management of multiple Mapfiles
+        * Increased security
+        * Consistent support across operating systems
+
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+        ### [Environment Variables](https://mapserver.org/environment_variables.html)
+
+        <a href="https://callforpapers.2021.foss4g.org/foss4g2021/talk/FG7PBN/">
+            <img class="plain" src="images/word_cloud.png" style="background: none;" />
+        </a>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+        ### Config File
+
+        <pre><code data-trim data-noescape>
+CONFIG
+  # Environment variables
+  ENV
+    # Limit Mapfile Access
+    MS_MAP_PATTERN "^/opt/mapserver" ## required
+
+    # Global Log/Debug Setup
+    MS_DEBUGLEVEL "5"
+
+    # Proj Library
+    PROJ_LIB "/share/proj/"
+    #
+    OGCAPI_HTML_TEMPLATE_DIRECTORY "/usr/local/mapserver/share/ogcapi/templates/html-bootstrap4/"
+  END
+
+  # Map aliases
+  MAPS
+    MAPFILE1 "/opt/mapserver/test/test1.map"
+    ITASCA "/opt/mapserver/test/itasca.map"
+  END
+  PLUGINS
+    "mssql" "/usr/plugins/msplugin_mssql2008.dll"
+  END
+END
+  </code></pre>
+    </script>
+</section>
+
+<section data-markdown data-background="images/gdal-logo.png" data-background-opacity="0.3" data-background-size="40%">
+        <script type="text/template">
+        ### [MS RFC 125: Support for CONNECTIONOPTIONS in Mapfiles](https://mapserver.org/development/rfc/ms-rfc-125.html)
+
+        [CONNECTIONOPTIONS](https://mapserver.org/mapfile/layer.html#mapfile-layer-connectionoptions) - added in 7-6-4 release
+
+<pre><code data-trim data-noescape>LAYER
+  NAME "test"
+  CONNECTIONTYPE OGR
+  CONNECTION "./data/nested_attrs.geojson"
+  CONNECTIONOPTIONS
+    "FLATTEN_NESTED_ATTRIBUTES" "YES"
+  END
+  [...]
+END
+</code></pre>
+
+        GDAL/OGR open option examples:
+
+        * [GeoJSON](https://gdal.org/drivers/vector/geojson.html?#open-options)
+        * [OGC API - Features](https://gdal.org/drivers/vector/oapif.html#open-options)
+    </script>
+</section>
+
+<section data-markdown data-background="images/proj_logo.png" data-background-opacity="0.3" data-background-size="40%">
+        <script type="text/template">
+        ### [MS RFC 126: Port to PROJ 6 API](https://mapserver.org/development/rfc/ms-rfc-126.html)
+
+        * MapServer 8.0
+        * This update also allows MapServer to work with PROJ 7,8 and future versions
+        * No syntax changes
+        * Update the `PROJ_LIB` setting
+
+<pre><code data-trim data-noescape>
+MAP
+    # point to the folder containing proj.db
+    CONFIG "PROJ_LIB" "C:\MapServer\bin\proj7\share"
+    PROJECTION
+     "init=epsg:3857"
+    END
+    [...]
+END
+</code></pre>
+    </script>
+</section>
+
+<section data-markdown data-background="images/proj_logo.png" data-background-opacity="0.3" data-background-size="40%">
+        <script type="text/template">
+        EPSG codes are recommended to benefit from more accurate coordinate transformations:
+
+<pre><code data-trim data-noescape>
+PROJECTION
+    "init=epsg:4326"
+END
+</code></pre>
+
+        Rather than PROJ 4 strings:
+
+<pre><code data-trim data-noescape>
+PROJECTION
+    "proj=latlong"
+    "ellps=WGS84"
+    "datum=WGS84"
+END
+</code></pre>
+    </script>
+</section>
+
+
+<section data-markdown data-background="images/mapscript_api_classObj.png" data-background-opacity="0.2" data-background-size="45%">
+        <script type="text/template">
+        [MS RFC 132: Update MapScript API Docs](https://mapserver.org/development/rfc/ms-rfc-132.html)
+
+        * [Full API documentation](https://geographika.github.io/MapServer-documentation/mapscript/mapscript-api/index.html)
+        * Auto-generated from Python MapScript bindings
+        * Links to Mapfile documentation
+        * Up-to-date with latest codebase
+    </script>
+</section>
+
+<section data-markdown>
+        <script type="text/template">
+        ### [MS RFC 133: Mapfile Syntax Cleanup](https://mapserver.org/development/rfc/ms-rfc-133.html)
+
+        * Easier to write parsers
+        * Less ambiguous
+        * Some keywords no longer have any effect
+        * Styling removed from `CLASS` and `LABEL` blocks (moved to `STYLE` in 2002)
+        * Over 30 keywords removed from 8 classes
+    </script>
+</section>
+
+
+<section data-markdown data-background="images/mappyfile.png" data-background-opacity="0.4" data-background-size="90%">
+        <script type="text/template">
+        ### [Mapfile Syntax Cleanup](https://mapserver.org/development/rfc/ms-rfc-133.html)
+
+        * Validation available using [mappyfile](https://mappyfile.readthedocs.io/en/latest/)
+        * Try online! [http://mappyfile.geographika.net/](http://mappyfile.geographika.net/)
+        * Download and run against multiple Mapfiles:
+
+<pre><code data-trim data-noescape>
+    pip install mappyfile
+    mappyfile validate ./msautotest/**/*.map --version=8.0
+
+    # output
+    class16.map (Line: 26 Column: 3) ERROR: Invalid value in CLASS - 'color' does not match any of the regexes: '^__[a-z]+__$'
+</code></pre>
+    </script>
+
+        <aside class="notes">
+        * can test on Itasca demo with version 8.0 validation
+        * http://mappyfile.geographika.net/#
+    </aside>
+</section>
+
+<section data-markdown data-background="images/idw_example.png" data-background-opacity="0.9">
+    <script type="text/template">
+        ### Inverse Distance Weighting Output
+
+        <pre><code data-trim data-noescape>
+LAYER
+  NAME "IDW"
+  TYPE RASTER
+  CONNECTIONTYPE IDW
+  CONNECTION "PointsLayer"
+  PROCESSING "RANGE_COLORSPACE=HSL"
+  PROCESSING "IDW_RADIUS=80"
+  PROCESSING "IDW_POWER=1"
+  PROCESSING "IDW_COMPUTE_BORDERS=OFF"
+  OFFSITE 0 0 0
+  CLASS
+    STYLE
+      COLORRANGE "#F9F871" "#5EBEC2"
+      DATARANGE 0 5
+    END
+    STYLE
+      COLORRANGE "#00ff00ff" "#ff0000ff"
+      DATARANGE 5 10
+    END
+    STYLE
+      COLORRANGE "#00ff00ff" "#ff0000ff"
+      DATARANGE 10 15
+    END
+    STYLE
+      COLORRANGE "#0000ff00" "#0000ffff"
+      DATARANGE 15 20
+    END
+    STYLE
+      COLORRANGE "#0000ffff" "#ff0000ff"
+      DATARANGE 20 255
+    END
+  END
+END
+  </code></pre>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+        ### Codebase Improvements
+
+        * [C++'ifying of codebase](https://github.com/MapServer/MapServer/pull/6034), and see
+        the [RFC](https://mapserver.org/development/rfc/ms-rfc-128.html)
+        * [Compilation warning fixes](https://github.com/MapServer/MapServer/pull/6267)
+        * [Coverity scan fixes](https://github.com/MapServer/MapServer/pull/6339) (fixing memory leaks)
+        * CI (Continuous Integration) updates, [testing CGI](https://github.com/MapServer/MapServer/pull/6294),
+        updates to [Ubuntu Bionic](https://github.com/MapServer/MapServer/pull/6111)
+
+        <div class="meta">
+            Provided by <a href="https://github.com/rouault">Even Rouault</a>
+        </div>
+    </script>
+</section>
