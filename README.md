@@ -1,4 +1,4 @@
-# mapserver-state-2021
+# mapserver-state-2022
 
-C:\Python38\python -m http.server --directory=D:\GitHub\mapserver-state-2021
+C:\Python310\python -m http.server --directory=D:\GitHub\mapserver-state-2022
 http://localhost:8000
