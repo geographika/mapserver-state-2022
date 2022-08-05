@@ -60,6 +60,24 @@
     </script>
 </section>
 
+<section data-markdown data-background="images/docker_logo.png" data-background-opacity="0.1" data-background-size="40%">
+    <script type="text/template">
+        ### MapServer on [Docker](https://hub.docker.com/r/camptocamp/mapserver/)
+
+        - [CampToCamp](https://github.com/camptocamp/docker-mapserver) maintained image
+        - Over 1 million pulls
+        - Easily publish and edit local Mapfiles
+        <pre><code data-trim data-noescape>
+    docker pull camptocamp/mapserver
+    docker run --restart unless-stopped --publish 8080:80 \
+            --volume=/usr/mapfiles/:/etc/mapserver/mapfiles:ro \
+            camptocamp/mapserver
+    # http://localhost:8080/?map=/etc/mapserver/mapfiles/polygon.map&mode=map&layers=all
+</code></pre>
+
+    </script>
+</section>
+
 <section data-markdown data-background="images/Geo_Styler_Logo_300_RGB.jpg" data-background-opacity="0.1" data-background-size="60%"
          data-background-position="top">
     <script type="text/template">
