@@ -28,12 +28,10 @@
     <script type="text/template">
         ## MapServer 8.0 Release - Key Changes
 
-        * Replacement of PHP MapScript with SWIG generated PHP bindings
-        * [Mapfile Syntax Cleanup](https://mapserver.org/development/rfc/ms-rfc-133.html)
-        * Validation available using [mappyfile](https://mappyfile.readthedocs.io/en/latest/)
-        * Try online! [http://mappyfile.geographika.net/](http://mappyfile.geographika.net/)
+        * See the [7.6 to 8.0 Migration Guide](https://mapserver.org/MIGRATION_GUIDE.html#mapserver-7-6-to-8-0-migration) for full details
+        * PHP MapScript replaced with PHPNG [SWIG](https://swig.org/) generated bindings
         * `shp2img` renamed `map2img`
-        * Config file
+        * A global `CONFIG` file is now required
 
         <pre><code data-trim data-noescape>
 CONFIG
@@ -43,6 +41,17 @@ CONFIG
   END
 END
   </code></pre>
+
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+        ## MapServer 8.0 Mapfile Syntax Changes
+
+        * [Mapfile Syntax Cleanup](https://mapserver.org/development/rfc/ms-rfc-133.html)
+        * Validation available using [mappyfile](https://mappyfile.readthedocs.io/en/latest/)
+        * Try online! [http://mappyfile.geographika.net/](http://mappyfile.geographika.net/)
 
     </script>
 </section>
