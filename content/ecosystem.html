@@ -82,13 +82,66 @@
 <section data-markdown data-background="images/Geo_Styler_Logo_300_RGB.jpg" data-background-opacity="0.1" data-background-size="60%"
          data-background-position="top">
     <script type="text/template">
-        ### [GeoStyler Mapfile Parser](https://github.com/geostyler/geostyler-mapfile-parser)
+        ### [GeoStyler](https://geostyler.org/)
 
-        - [FOSS4G talk](https://callforpapers.2021.foss4g.org/foss4g2021/talk/FG7PBN/) by [Balthasar Teuscher](https://github.com/b4l)
-        - translation between multiple styling formats
+        * Translation between multiple styling formats
 
         <a href="https://callforpapers.2021.foss4g.org/foss4g2021/talk/FG7PBN/">
             <img class="plain" src="images/geostyler_mapfile_6HX5smM.png" style="background: none;" />
         </a>
+
+        * Mapfile ➔ GeoStyler Format: [TypeScript GeoStyler Mapfile Parser](https://github.com/geostyler/geostyler-mapfile-parser)
+        * GeoStyler Format ➔ Mapfile: [Python GeoCat Bridge Style](https://github.com/GeoCat/bridge-style)
+    </script>
+</section>
+
+<section data-markdown data-background="images/Geo_Styler_Logo_300_RGB.jpg" data-background-opacity="0.1" data-background-size="60%"
+         data-background-position="top">
+    <script type="text/template">
+        ### GeoStyler Mapfile Example
+        <pre><code data-trim data-noescape>
+npm install geostyler-cli
+geostyler -s mapfile -t mapbox -o line.json line.map
+        </code></pre>
+
+        <pre><code data-noescape>LAYER
+  NAME "simple_line"
+  TYPE LINE
+  CLASS
+    STYLE
+      COLOR 0 255 0
+      WIDTH 5
+    END
+  END
+END</code></pre>
+
+        * Currently limited to one layer per Mapfile
+        * Comprehensive collection of [Mapfiles for testing](https://github.com/geostyler/geostyler-mapfile-parser/tree/master/data/mapfiles)
+    </script>
+</section>
+
+<section data-markdown data-background="images/Geo_Styler_Logo_300_RGB.jpg" data-background-opacity="0.1" data-background-size="60%"
+         data-background-position="top">
+    <script type="text/template">
+        ### GeoStyler Mapfile Output
+        <pre><code data-noescape style="max-height: fit-content;">{
+  "version": 8,
+  "name": "simple_line",
+  "layers": [
+    {
+      "id": "",
+      "type": "line",
+      "paint": {
+       "line-color": "#00FF00",
+       "line-width": 5
+      },
+      "layout": {
+       "line-cap": "round",
+       "line-join": "round"
+      }
+    }
+  ]
+}</code></pre>
+        * Can reuse Mapfile styling for client-side vector tiles
     </script>
 </section>
