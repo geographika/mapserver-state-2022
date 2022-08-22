@@ -3,7 +3,7 @@
         ## MapServer 8.0 Release
 
         - Major development proposed as a [Request for Comment](https://mapserver.org/development/rfc/index.html) (RFC)
-        - Release planned for August 2022
+        - Release candidate 8.0.0-rc1 [out now](https://mapserver.org/development/announce/8-0.html)!
     </script>
 </section>
 
@@ -32,14 +32,13 @@
         * PHP MapScript replaced with PHPNG [SWIG](https://swig.org/) generated bindings
         * `shp2img` renamed `map2img`
         * A global `CONFIG` file is now required
-        <pre><code data-trim data-noescape>
-CONFIG
-  ENV
-  # Limit Mapfile Access
-  MS_MAP_PATTERN "^/opt/mapserver" ## required when referencing Mapfiles by path
-  END
-END
-</code></pre>
+        <pre><code data-noescape>CONFIG
+    ENV
+      # limit Mapfile Access
+      # required when referencing Mapfiles by path
+      MS_MAP_PATTERN "^/opt/mapserver"
+    END
+END</code></pre>
 
     </script>
 </section>
@@ -60,7 +59,7 @@ END
         ### [MS RFC 137: Native FlatGeobuf Support](https://mapserver.org/development/rfc/ms-rfc-137.html)
 
         * Fast binary encoding for geographic data based on Google's [flatbuffers](http://google.github.io/flatbuffers/)
-        * [FlatGeobuf](https://github.com/flatgeobuf/flatgeobuf) is lossless and very fast to write, vector tiles are slower to create and lossy (not all data is kept)
+        * [FlatGeobuf](https://github.com/flatgeobuf/flatgeobuf) very fast to write and keeps all coordinates, vector tiles are slower to create and can generalise geometries
 
         <div class="meta">
             Thanks to <a href="https://github.com/bjornharrtell" target="_blank">Björn Harrtell</a> for development
@@ -105,13 +104,17 @@ END
     </script>
 </section>
 
-<!--<section data-markdown data-background="images/mapscript_api_classObj.png" data-background-opacity="0.2" data-background-size="45%">
+<section data-markdown data-background="images/mapscript_api_classObj.png" data-background-opacity="0.2" data-background-size="45%">
     <script type="text/template">
-        [MS RFC 132: Update MapScript API Docs](https://mapserver.org/development/rfc/ms-rfc-132.html)
+        ### MapScript Changes
 
-        * [Full API documentation](https://geographika.github.io/MapServer-documentation/mapscript/mapscript-api/index.html)
-        * Auto-generated from Python MapScript bindings
-        * Links to Mapfile documentation
-        * Up-to-date with latest codebase
+        * [MS RFC 132: Update MapScript API Docs](https://mapserver.org/development/rfc/ms-rfc-132.html)
+          * [Full API documentation](https://mapserver.org/mapscript/mapscript-api/index.html)
+          * Auto-generated from Python MapScript bindings
+          * Links to Mapfile documentation
+          * Up-to-date with latest codebase
+        * [MS RFC 117: PHP 7 MapScript Support Through SWIG](https://mapserver.org/development/rfc/ms-rfc-117.html)
+          * Supports PHP 7+
+          * Native PHP MapScript dropped in MapServer 8.0
     </script>
-</section>-->
+</section>
