@@ -32,15 +32,14 @@
         * PHP MapScript replaced with PHPNG [SWIG](https://swig.org/) generated bindings
         * `shp2img` renamed `map2img`
         * A global `CONFIG` file is now required
-
         <pre><code data-trim data-noescape>
 CONFIG
   ENV
-    # Limit Mapfile Access
-    MS_MAP_PATTERN "^/opt/mapserver" ## required
+  # Limit Mapfile Access
+  MS_MAP_PATTERN "^/opt/mapserver" ## required when referencing Mapfiles by path
   END
 END
-  </code></pre>
+</code></pre>
 
     </script>
 </section>
